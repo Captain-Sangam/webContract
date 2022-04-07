@@ -13,6 +13,7 @@ const Layout = ({ contract, head, chain, address, children }) => {
   }
 
   return (
+    <div>
     <Flex
       direction={'column'}
       align={'center'}
@@ -35,13 +36,13 @@ const Layout = ({ contract, head, chain, address, children }) => {
             align={'center'}
             justify={'space-between'}
             marginRight={10}
-          >
+          ><Link href="/">
             <Image
               src={LOGO.src}
               alt='logo epic-nfts'
               w={7}
               h={7}
-            />
+            /></Link>
             <Text
               paddingLeft={5}
               fontSize={20}
@@ -97,10 +98,11 @@ const Layout = ({ contract, head, chain, address, children }) => {
           />
         </Tooltip>
       </Flex>
+      </Flex>
 
       {children}
-
-    </Flex>
+</div>
+    
   )
 }
 
