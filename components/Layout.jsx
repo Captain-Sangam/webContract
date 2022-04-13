@@ -107,7 +107,7 @@ const Layout = () => {
             ><Link href="/">
                 <Image
                   src={LOGO.src}
-                  alt='logo epic-nfts'
+                  alt='logo iterflow'
                   w={7}
                   h={7}
                 /></Link>
