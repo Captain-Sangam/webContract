@@ -1,34 +1,91 @@
+# Flux
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+## Setting up your local environment
+
+The app needs you to provide some secrets as a local `.env.local` file. 
+Set it up as follows
+```
+NEXT_PUBLIC_ETHERSCAN_API_KEY=<< enter the key here >>
+```
+
+Install the requirements from the `package.json` file with 
+```
+npm install 
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Setting up the Docker image
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+Docker image dependencies are defined in the `Dockerfile` 
+Dependencies and trigger is defined in `docker-compose.yaml` file
 
-To learn more about Next.js, take a look at the following resources:
+To build the image for the first time, run
+```buildoutcfg
+./build.sh
+```
+This will create the base image and start the container for you 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If there are no changes to the base image and you just want to start the container, then run
+```buildoutcfg
+./start.sh
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+If there are code refreshes that need to reflected onto the container, run 
+```buildoutcfg
+./refresh.sh simple
+```
+to refresh the container, or run
+```buildoutcfg
+./refresh.sh complete
+```
+to refresh the base image itself
 
-## Deploy on Vercel
+## Deployments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The docker images required for deployments are managed through GitHub actions,
+You can also deploy images manually using the steps below
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To login to AWS ECR, run
+```buildoutcfg
+sudo docker login -u AWS -p $(aws ecr get-login-password --region us-west-2) 622808209417.dkr.ecr.us-west-2.amazonaws.com
+```
+
+To build the docker image, run
+```buildoutcfg
+sudo DOCKER_BUILDKIT=1 docker build -t flux .
+```
+
+To create the required repo [ One time thing ]
+```buildoutcfg
+aws ecr create-repository --repository-name flux --image-scanning-configuration scanOnPush=true --region us-west-2
+```
+
+To tag the image the image
+```buildoutcfg
+sudo docker tag flux 622808209417.dkr.ecr.us-west-2.amazonaws.com/flux
+```
+
+To push the image
+```buildoutcfg
+sudo docker push 622808209417.dkr.ecr.us-west-2.amazonaws.com/flux    
+```
+
+To check the newly pushed image
+```buildoutcfg
+aws ecr describe-images --repository-name flux
+```
+
+
+
