@@ -9,7 +9,7 @@ import WalletConnectionPrompter from '../components/connectWallet'
 
 import styles from '../styles/Home.module.css'
 
-function template() {
+function Template() {
     const router = useRouter()
     const [currentAccount, setCurrentAccount] = useState('')
 
@@ -57,4 +57,4 @@ function template() {
 }
 
 
-export default template
+export default Template

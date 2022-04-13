@@ -91,7 +91,7 @@ export default function Home() {
                   <Text fontSize={20}>more info to be added </Text>
                   <Text fontSize={20}>Use this for moonbrids for now</Text>
                   <Box align={'center'} >
-                    <Link href="/smartContracts">
+                    <Link passHref href="/smartContracts">
                       <Button mt={5} p={4} w={'30%'}
                         fontWeight={'bold'} letterSpacing={1} borderRadius={'md'} bgGradient={'linear(to-r, green.300, green.500)'}
                         color={'white'} boxShadow={'2xl'}

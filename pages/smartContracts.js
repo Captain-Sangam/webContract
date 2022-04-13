@@ -8,9 +8,8 @@ import Layout from '../components/Layout'
 import WalletConnectionPrompter from '../components/connectWallet'
 
 import styles from '../styles/Home.module.css'
-import { SettingsAccessibility } from '@mui/icons-material';
 
-function talkToSmartContracts() {
+function SmartContracts() {
     const router = useRouter()
     const [currentAccount, setCurrentAccount] = useState('')
     const [abi, setAbi] = useState('')
@@ -133,7 +132,7 @@ function talkToSmartContracts() {
                 <form className="flex flex-col" onSubmit={handleClick}>
                     <Box mt={8}>
                         <InputGroup>
-                            <InputLeftAddon children='Contact Address' />
+                        <InputLeftAddon>Contact Address</InputLeftAddon>
                             <Input placeholder='Enter the address of smart contract here' id='contract_address' />
                         </InputGroup>
                     </Box>
@@ -160,7 +159,7 @@ function talkToSmartContracts() {
                                     {
                                         readFunctions.map((functions) => {
                                             return (
-                                                <AccordionItem>
+                                                <AccordionItem key={JSON.parse(functions).name}>
                                                     <h2>
                                                         <AccordionButton>
                                                             <Box flex='1' textAlign='left'>
@@ -193,7 +192,7 @@ function talkToSmartContracts() {
                                     {
                                         writeFunctions.map((functions) => {
                                             return (
-                                                <AccordionItem>
+                                                <AccordionItem key={JSON.parse(functions).name}>
                                                     <h2>
                                                         <AccordionButton>
                                                             <Box flex='1' textAlign='left'>
@@ -207,8 +206,8 @@ function talkToSmartContracts() {
                                                             <Box mt={8}>
                                                                 {JSON.parse(functions).inputs.map((inputs) => {
                                                                     return (
-                                                                        <InputGroup mt={2} >
-                                                                            <InputLeftAddon children={inputs.name} />
+                                                                        <InputGroup mt={2} key={JSON.parse(functions).name}>
+                                                                            <InputLeftAddon>{inputs.name}</InputLeftAddon>
                                                                             <Input placeholder={inputs.type} />
                                                                         </InputGroup>
                                                                     )
@@ -235,4 +234,4 @@ function talkToSmartContracts() {
 }
 
 
-export default talkToSmartContracts
+export default SmartContracts

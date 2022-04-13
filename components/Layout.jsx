@@ -68,7 +68,7 @@ const Layout = () => {
 
   useEffect(() => {
     checkIfWalletIsConnected()
-  }, [])
+  }, )
 
   const handleAddress = () => {
     return currentAccount.slice(0, 6) + ("...")
