@@ -8,10 +8,12 @@ import Layout from '../components/Layout'
 import WalletConnectionPrompter from '../components/connectWallet'
 
 import styles from '../styles/Home.module.css'
+import { SettingsAccessibility } from '@mui/icons-material';
 
 function talkToSmartContracts() {
     const router = useRouter()
     const [currentAccount, setCurrentAccount] = useState('')
+    const [abi, setAbi] = useState('')
     const [showMe, setShowMe] = useState(false);
     const CheckLogin = async () => {
         const accounts = await ethereum.request({ method: 'eth_accounts' })
@@ -71,12 +73,12 @@ function talkToSmartContracts() {
 
     const fetchABI = async (contractAddress) => {
 
-        //const API_KEY = process.env.ETHERSCAN_API_KEY
-        const API_KEY = "ENY13TTYWK9C24EN7NYX1WM3C3B2AEK89A"
+        const API_KEY = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY
         const chainURL = await fetchAbiURL()
         const AbiURL = chainURL + contractAddress + "&apikey=" + API_KEY
         const response_ABI = await fetch(AbiURL)
         const abi = await response_ABI.json()
+        setAbi(abi)
         return abi['result']
     }
 
@@ -89,6 +91,9 @@ function talkToSmartContracts() {
                     setReadFunctions(readFunctions => readFunctions.concat(JSON.stringify(currentFunctions)))
                 }
                 else {
+                    if(currentFunctions['payable']){
+                        currentFunctions['inputs']=[{'name': currentFunctions['name'], "type": "uint256"}]
+                    }
                     setWriteFunctions(writeFunctions => writeFunctions.concat(JSON.stringify(currentFunctions)))
                 }
             }
@@ -136,14 +141,14 @@ function talkToSmartContracts() {
                         <Button type="submit" >Load Contract
                         </Button>
                     </Box>
+                </form>
+                <div id="contract_functions" style={{ display: showMe ? "block" : "none" }}>
                     <Box mt={2} color='gray.500'>
                         <InputGroup>
                             <Textarea id="abi_text_area" >
                             </Textarea>
                         </InputGroup>
                     </Box>
-                </form>
-                <div id="contract_functions" style={{ display: showMe ? "block" : "none" }}>
                     <Tabs isFitted variant='enclosed' w={'100%'} mt={5} >
                         <TabList mb='1em'>
                             <Tab>Read Contract</Tab>
@@ -165,7 +170,17 @@ function talkToSmartContracts() {
                                                         </AccordionButton>
                                                     </h2>
                                                     <AccordionPanel pb={4}>
-                                                        {functions}
+                                                        <form>
+                                                            <Box mt={8}>
+                                                                <InputGroup>
+                                                                    <Input placeholder={JSON.parse(functions).name} id={JSON.parse(functions).name} />
+                                                                </InputGroup>
+                                                            </Box>
+                                                            <Box align="right" mt={2} >
+                                                                <Button type="submit" >Get Details
+                                                                </Button>
+                                                            </Box>
+                                                        </form>
                                                     </AccordionPanel>
                                                 </AccordionItem>
                                             )
@@ -188,7 +203,22 @@ function talkToSmartContracts() {
                                                         </AccordionButton>
                                                     </h2>
                                                     <AccordionPanel pb={4}>
-                                                        {functions}
+                                                        <form>
+                                                            <Box mt={8}>
+                                                                {JSON.parse(functions).inputs.map((inputs) => {
+                                                                    return (
+                                                                        <InputGroup mt={2} >
+                                                                            <InputLeftAddon children={inputs.name} />
+                                                                            <Input placeholder={inputs.type} />
+                                                                        </InputGroup>
+                                                                    )
+                                                                })}
+                                                            </Box>
+                                                            <Box align="right" mt={2} >
+                                                                <Button type="submit" >Get Details
+                                                                </Button>
+                                                            </Box>
+                                                        </form>
                                                     </AccordionPanel>
                                                 </AccordionItem>
                                             )
