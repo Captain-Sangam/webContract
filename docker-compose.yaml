@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  flux:
-    container_name: flux
+  WebContract:
+    container_name: WebContract
     build: .
     ports:
       - 3000:3000

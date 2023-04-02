@@ -7,13 +7,18 @@ FROM node:alpine
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
 
-# copy source files
-COPY . /usr/src
+# copy install files
+COPY package*.json /usr/src
 
 # install dependencies
 RUN npm install
 
-# start app
+# copy source files
+COPY . /usr/src
+
+# build
 RUN npm run build
+
+# start app
 EXPOSE 3000
 CMD npm run start

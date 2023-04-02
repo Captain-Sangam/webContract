@@ -70,7 +70,7 @@ export default function Home() {
               <TabPanels>
                 <TabPanel>
                   <Text fontSize={20}>Totally cool write up </Text>
-                  <Text fontSize={20}>about fluxes and why we need them to be inserted here</Text>
+                  <Text fontSize={20}>about WebContracts and why we need them to be inserted here</Text>
                   <Text fontSize={20}>to be inserted here</Text>
 
                   <Box align={'center'} >
@@ -82,7 +82,7 @@ export default function Home() {
                         cursor: currentAccount ? 'pointer' : 'not-allowed'
                       }}
                       disabled={true}>
-                      Create a Flux
+                      Create a WebContract
                     </Button>
                   </Box>
                 </TabPanel>

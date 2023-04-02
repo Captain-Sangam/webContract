@@ -2,7 +2,7 @@
 import { React, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Flex, Icon, IconButton, Image, Link, Text, Tooltip, useColorMode, useToast } from '@chakra-ui/react'
-import LOGO from '../public/logo_icon.png'
+import LOGO from '../public/icon.png'
 import { FaWallet } from 'react-icons/fa'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 
@@ -84,9 +84,9 @@ const Layout = () => {
       >
         {
           <Head>
-            <title>Iterflow</title>
+            <title>WebContract</title>
             <meta name="description" content="Automtate your journey" />
-            <link rel="shortcut icon" type="image/x-icon" href="logo_icon.png"></link>
+            <link rel="shortcut icon" type="image/x-icon" href="icon.png"></link>
           </Head>
         }
 
@@ -107,7 +107,7 @@ const Layout = () => {
             ><Link href="/">
                 <Image
                   src={LOGO.src}
-                  alt='logo iterflow'
+                  alt='WebContract'
                   w={7}
                   h={7}
                 /></Link>
@@ -116,7 +116,7 @@ const Layout = () => {
                 fontSize={20}
                 fontWeight={'bold'}
                 letterSpacing={1}
-              >Iterflow</Text>
+              >WebContract</Text>
             </Flex>
 
 
