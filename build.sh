@@ -3,7 +3,7 @@
 # Exit if something fails
 set -e
 
-# Build the base image and start the docker container for Flux
+# Build the base image and start the docker container for WebContract
 sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d --build
 
 # Checking status of the container
@@ -11,6 +11,6 @@ sudo docker ps
 
 # Fly way
 echo
-echo "If everything went well, Flux should be running at http://127.0.0.1:3000"
-echo "To login to the docker container, run => docker exec -it flux bash"
+echo "If everything went well, WebContract should be running at http://127.0.0.1:3000"
+echo "To login to the docker container, run => docker exec -it WebContract bash"
 echo
