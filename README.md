@@ -6,6 +6,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Setting up your local environment
 
 The app needs you to provide some secrets as a local `.env.local` file. 
+
+You'll need an etherscan API key, which you can get from [here](https://docs.etherscan.io/getting-started/viewing-api-usage-statistics)
+
 Set it up as follows
 ```
 NEXT_PUBLIC_ETHERSCAN_API_KEY=<< enter the key here >>

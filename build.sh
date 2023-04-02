@@ -11,6 +11,6 @@ sudo docker ps
 
 # Fly way
 echo
-echo "If everything went well, FlWebContractux should be running at http://127.0.0.1:3000"
+echo "If everything went well, WebContract should be running at http://127.0.0.1:3000"
 echo "To login to the docker container, run => docker exec -it WebContract bash"
 echo
